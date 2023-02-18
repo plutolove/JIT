@@ -1,5 +1,3 @@
-#include "foo.h"
-
 extern void foo_jit();
 
 int main() {
