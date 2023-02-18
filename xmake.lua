@@ -11,6 +11,7 @@ add_requires("fmt")
 target("foo")
     set_kind("static")
     set_symbols("debug")
+    add_includedirs("./src")
     add_files("src/foo.cpp")
     add_ldflags("-Wl,--export-dynamic")
 
