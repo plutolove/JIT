@@ -143,6 +143,7 @@ $_ZZN3fmt2v96detail15do_count_digitsEjE5table = comdat any
 
 @_ZStL8__ioinit = internal global %"class.std::ios_base::Init" zeroinitializer, align 1
 @__dso_handle = weak dso_local global ptr null, align 8
+@_Unwind_Resume = dso_local local_unnamed_addr global ptr null, align 8
 @.str = private unnamed_addr constant [22 x i8] c"345546rdtfdfg345fgthd\00", align 1
 @_ZSt4cout = external global %"class.std::basic_ostream", align 8
 @.str.3 = private unnamed_addr constant [6 x i8] c"[{}]\0A\00", align 1

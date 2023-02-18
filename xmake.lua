@@ -1,30 +1,47 @@
-add_rules("mode.debug", "mode.release")
+add_rules("mode.debug")
 
 set_languages("c++17")
 set_optimize("fastest")
 
 
-add_requires("llvm")
+add_requires("llvm 14.x", {kind = "library", configs = {base = true}})
 add_requires("fmt")
-
+add_requires("python")
 
 target("foo")
     set_kind("static")
     set_symbols("debug")
     add_includedirs("./src")
-    add_files("src/foo.cpp")
+    add_files("src/jit/*.cpp", "src/foo.cpp")
+    add_packages("llvm", {components = "base"})
+    add_cxflags("-fPIC")
+    add_packages("fmt")
     add_ldflags("-Wl,--export-dynamic")
+    add_links("fmt")
 
 target("test")
     set_kind("binary")
     set_symbols("debug")
     add_deps("foo")
     add_includedirs("./src")
-    add_files("src/jit/*.cpp", "src/*.cpp")
-    add_packages("llvm", "fmt")
-    add_links("LLVM", "fmt")
+    add_files("src/*.cpp")
+    add_packages("llvm", {components = "base"})
+    add_packages("fmt")
     add_ldflags("-Wl,--export-dynamic")
+    add_links("fmt")
 
+
+-- target("JIT")
+--     add_includedirs("./src")
+--     set_symbols("debug")
+--     add_rules("swig.cpp", {moduletype = "python"})
+--     add_files("src/jit.i", {scriptdir = "share"})
+--     add_files("src/foo.cpp")
+--     add_deps("foo")
+--     add_packages("python")
+--     add_packages("llvm", "fmt")
+--     add_links("LLVM", "fmt", "unwind")
+--     add_ldflags("-Wl,--export-dynamic", "-Wl,--whole-archive")
 
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
