@@ -19,5 +19,5 @@ int test_string(std::string* val) {
 void set_test(std::set<int>* s) {
   printf("--------------------\n");
   for (size_t i = 0; i < 10; i++) s->insert(i);
-  // std::cout << fmt::format("[{}]\n", fmt::join(s->begin(), s->end(), ","));
+  std::cout << fmt::format("[{}]\n", fmt::join(s->begin(), s->end(), ","));
 }
