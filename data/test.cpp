@@ -7,9 +7,7 @@
 void* __dso_handle __attribute__((weak)) = NULL;
 void* _Unwind_Resume = 0;
 
-extern "C" {
 extern int run_lib();
-}
 
 int mmmax() { return 2 + run_lib(); }
 

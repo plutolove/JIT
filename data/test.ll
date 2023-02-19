@@ -28,19 +28,19 @@ declare i32 @__cxa_atexit(ptr, ptr, ptr) local_unnamed_addr #2
 
 ; Function Attrs: mustprogress sspstrong uwtable
 define dso_local noundef i32 @_Z5mmmaxv() local_unnamed_addr #3 {
-  %1 = tail call i32 @run_lib()
+  %1 = tail call noundef i32 @_Z7run_libv()
   %2 = add nsw i32 %1, 2
   ret i32 %2
 }
 
-declare i32 @run_lib() local_unnamed_addr #0
+declare noundef i32 @_Z7run_libv() local_unnamed_addr #0
 
 ; Function Attrs: mustprogress sspstrong uwtable
 define dso_local noundef i32 @_Z11test_stringPNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE(ptr noundef nonnull %0) local_unnamed_addr #3 {
   %2 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 1
   %3 = load i64, ptr %2, align 8, !tbaa !5
   %4 = tail call noundef nonnull align 8 dereferenceable(32) ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_replaceEmmPKcm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef 0, i64 noundef %3, ptr noundef nonnull @.str, i64 noundef 21)
-  %5 = tail call i32 @run_lib()
+  %5 = tail call noundef i32 @_Z7run_libv()
   %6 = add nsw i32 %5, 2
   ret i32 %6
 }

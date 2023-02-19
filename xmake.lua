@@ -12,6 +12,7 @@ add_requires("python")
 target("test")
     set_kind("binary")
     set_symbols("debug")
+    set_strip("none")
     add_includedirs("./src")
     add_files("src/jit/*.cpp", "src/*.cpp")
     add_packages("llvm", "fmt")
@@ -30,7 +31,6 @@ target("JIT")
     add_packages("python")
     add_packages("llvm", "fmt")
     add_links("LLVM", "fmt", "unwind")
-    add_ldflags("-Wl,--export-dynamic", "-Wl,--whole-archive")
 
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
