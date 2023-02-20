@@ -1,10 +1,9 @@
-add_rules("mode.release")
+add_rules("mode.debug")
 
 set_languages("c++17")
 set_optimize("fastest")
 
-
-add_requires("llvm")
+add_requires("llvm 14.x", {kind = "library", configs = {base = true}})
 add_requires("fmt")
 add_requires("python")
 
@@ -15,8 +14,9 @@ target("test")
     set_strip("none")
     add_includedirs("./src")
     add_files("src/jit/*.cpp", "src/*.cpp")
-    add_packages("llvm", "fmt")
-    add_links("LLVM", "fmt")
+    add_packages("llvm", {components = "base"})
+    add_packages("fmt")
+    add_syslinks("tinfo")
     add_ldflags("-Wl,--export-dynamic")
     
 
@@ -28,9 +28,14 @@ target("JIT")
     add_rules("swig.cpp", {moduletype = "python"})
     add_files("src/jit.i", {scriptdir = "share"})
     add_files("src/jit/*.cpp", "src/foo.cpp")
+    on_load(function (target)
+        print("build %s", target:targetfile())
+    end)
     add_packages("python")
-    add_packages("llvm", "fmt")
-    add_links("LLVM", "fmt", "unwind")
+    add_packages("llvm", {components = "base"})
+    add_packages("fmt")
+    add_syslinks("tinfo")
+    add_ldflags("-Wl,--export-dynamic")
 
 --
 -- If you want to known more usage about xmake, please see https://xmake.io

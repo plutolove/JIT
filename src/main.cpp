@@ -1,4 +1,4 @@
-extern void foo_jit();
+#include "foo.h"
 
 int main() {
   foo_jit();

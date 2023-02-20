@@ -7,6 +7,7 @@
 #include "common/type_cast.h"
 #include "common/type_promation.h"
 #include "jit/sql_jit.h"
+#include "llvm/Support/DynamicLibrary.h"
 
 int add(int a, int b) { return a + b; }
 
@@ -14,33 +15,33 @@ int run_lib() { return 1; }
 
 void foo_jit() {
   std::cout << "----------------" << std::endl;
-  sql::SQLJit::CompiledModule res =
-      sql::SQLJit::getInstance().compileWithExtraIR(
-          "./data/test.ll", [](llvm::Module& module) {
-            auto& context = module.getContext();
-            llvm::IRBuilder<> b(context);
+  auto& jit = sql::SQLJit::getInstance();
+  llvm::sys::DynamicLibrary::getPermanentLibrary(
+      "/home/meng/workspace/JIT/build/linux/x86_64/release/_JIT.so");
+  sql::SQLJit::CompiledModule res = jit.compileWithExtraIR(
+      "/home/meng/workspace/JIT/data/test.ll", [](llvm::Module& module) {
+        auto& context = module.getContext();
+        llvm::IRBuilder<> b(context);
 
-            auto* func_declaration_type =
-                llvm::FunctionType::get(b.getInt32Ty(), {}, false);
-            auto func_declaration =
-                module.getOrInsertFunction("_Z5mmmaxv", func_declaration_type);
+        auto* func_declaration_type =
+            llvm::FunctionType::get(b.getInt32Ty(), {}, false);
+        auto func_declaration =
+            module.getOrInsertFunction("_Z5mmmaxv", func_declaration_type);
 
-            auto* value_type = b.getInt64Ty();
-            auto* pointer_type = value_type->getPointerTo();
+        auto* value_type = b.getInt64Ty();
+        auto* pointer_type = value_type->getPointerTo();
 
-            auto* func_type =
-                llvm::FunctionType::get(b.getInt32Ty(), {}, false);
-            auto* function = llvm::Function::Create(
-                func_type, llvm::Function::ExternalLinkage, "test_name",
-                module);
-            auto* entry = llvm::BasicBlock::Create(context, "entry", function);
+        auto* func_type = llvm::FunctionType::get(b.getInt32Ty(), {}, false);
+        auto* function = llvm::Function::Create(
+            func_type, llvm::Function::ExternalLinkage, "test_name", module);
+        auto* entry = llvm::BasicBlock::Create(context, "entry", function);
 
-            auto* argument = function->args().begin();
-            b.SetInsertPoint(entry);
+        auto* argument = function->args().begin();
+        b.SetInsertPoint(entry);
 
-            auto value = b.CreateCall(func_declaration);
-            b.CreateRet(value);
-          });
+        auto value = b.CreateCall(func_declaration);
+        b.CreateRet(value);
+      });
 
   for (auto& kv : res.function_name_to_symbol) {
     if (kv.first != "test_name") continue;

@@ -5,7 +5,7 @@
 #include "fmt/format.h"
 
 void* __dso_handle __attribute__((weak)) = NULL;
-void* _Unwind_Resume = 0;
+// void* _Unwind_Resume = 0;
 
 extern int run_lib();
 
