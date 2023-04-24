@@ -3,10 +3,13 @@ add_rules("mode.debug", "mode.release")
 set_languages("c++17")
 set_optimize("fastest")
 
+add_repositories("local-repo https://github.com/plutolove/xmake-repo.git dev")
 
-add_requires("llvm")
-add_requires("fmt")
+add_requires("libllvm 15.x")
 
+on_load(function (package)
+  print(os.getenv("LLVM_ROOT"))
+end)
 
 target("foo")
     set_kind("static")
