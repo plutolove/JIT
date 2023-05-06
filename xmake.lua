@@ -1,19 +1,49 @@
 add_rules("mode.debug", "mode.release")
+add_rules("plugin.compile_commands.autoupdate", {outputdir = "build64_release"})
 
 set_languages("c++17")
 set_optimize("fastest")
 
+add_repositories("local-repo https://github.com/plutolove/xmake-repo.git")
 
-add_requires("llvm")
+
+add_requires("libllvm 15.x")
+
 add_requires("fmt")
 
+on_load(function (package)
+  print(os.getenv("LLVM_ROOT"))
+end)
 
 target("foo")
-    set_kind("static")
+    add_packages("libllvm", "fmt")
     set_symbols("debug")
+    on_build(function (target, opt)
+      -- local llvm_config_bin = target:pkg("libllvm")
+      -- print (llvm_config_bin)
+      -- local libaversion = target:dep("libllvm")
+      -- print(libaversion)
+      print("0-345345645645")
+      print(os.getenv("LLVM_ROOT"))
+      print(os.getenv("PATH"))
+      os.vrun("mlir-tblgen --version")
+    end)
     add_includedirs("./src")
     add_files("src/foo.cpp")
     add_ldflags("-Wl,--export-dynamic")
+
+-- rule("mlir_tblgen")
+--     on_load(function (target)
+--         target:add("rules", "mlir_tblgen")
+-- end)
+
+-- rule("generate")
+--     on_build(function (target)
+--         -- 生成 TableGen 文件的代码
+--         local tblgen = target:dep("mlir-tblgen"):rawlink() -- 获取 mlir-tblgen 的路径
+--         -- local cmd = format("%s -gen-rewriters my_pattern.inc -I%s %s", tblgen, target:scriptdir(), target:file("my_pattern.td"))
+--         -- os.exec(cmd)
+--     end)
 
 target("test")
     set_kind("binary")
@@ -21,11 +51,8 @@ target("test")
     add_deps("foo")
     add_includedirs("./src")
     add_files("src/jit/*.cpp", "src/*.cpp")
-    add_packages("llvm", "fmt")
-    add_links("LLVM", "fmt")
+    add_packages("libllvm", "fmt")
     add_ldflags("-Wl,--export-dynamic")
-
-
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
 --
