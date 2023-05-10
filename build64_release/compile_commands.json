@@ -1,0 +1,21 @@
+[
+{
+  "directory": "/data01/home/mengshangqi.123/workspace/JIT",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-g", "-O3", "-std=c++17", "-Isrc", "-I", "/data01/home/mengshangqi.123/.xmake/packages/l/libllvm/15.0.7/b0d35ea6af354e3c89e02a8272fc43ff/include", "-I", "/data01/home/mengshangqi.123/.xmake/packages/f/fmt/9.1.0/d363b063d73b40728217e45838c2553c/include", "-DNDEBUG", "-o", "build/.objs/test/linux/x86_64/release/src/jit/sql_jit.cpp.o", "src/jit/sql_jit.cpp"],
+  "file": "src/jit/sql_jit.cpp"
+},
+{
+  "directory": "/data01/home/mengshangqi.123/workspace/JIT",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-g", "-O3", "-std=c++17", "-Isrc", "-I", "/data01/home/mengshangqi.123/.xmake/packages/l/libllvm/15.0.7/b0d35ea6af354e3c89e02a8272fc43ff/include", "-I", "/data01/home/mengshangqi.123/.xmake/packages/f/fmt/9.1.0/d363b063d73b40728217e45838c2553c/include", "-DNDEBUG", "-o", "build/.objs/test/linux/x86_64/release/src/foo.cpp.o", "src/foo.cpp"],
+  "file": "src/foo.cpp"
+},
+{
+  "directory": "/data01/home/mengshangqi.123/workspace/JIT",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-g", "-O3", "-std=c++17", "-Isrc", "-I", "/data01/home/mengshangqi.123/.xmake/packages/l/libllvm/15.0.7/b0d35ea6af354e3c89e02a8272fc43ff/include", "-I", "/data01/home/mengshangqi.123/.xmake/packages/f/fmt/9.1.0/d363b063d73b40728217e45838c2553c/include", "-DNDEBUG", "-o", "build/.objs/test/linux/x86_64/release/src/main.cpp.o", "src/main.cpp"],
+  "file": "src/main.cpp"
+},
+{
+  "directory": "/data01/home/mengshangqi.123/workspace/JIT",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-g", "-O3", "-std=c++17", "-Isrc", "-I", "/data01/home/mengshangqi.123/.xmake/packages/l/libllvm/15.0.7/b0d35ea6af354e3c89e02a8272fc43ff/include", "-I", "/data01/home/mengshangqi.123/.xmake/packages/f/fmt/9.1.0/d363b063d73b40728217e45838c2553c/include", "-DNDEBUG", "-o", "build/.objs/foo/linux/x86_64/release/src/foo.cpp.o", "src/foo.cpp"],
+  "file": "src/foo.cpp"
+}]
